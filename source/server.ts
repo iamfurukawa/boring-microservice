@@ -1,0 +1,61 @@
+/** source/server.ts */
+import http from 'http';
+import express, { Express } from 'express';
+import morgan, { token } from 'morgan';
+
+import { validateToken, parseJwt } from './services/auth.service';
+
+import routesProposal from './routes/proposal'
+import routesProducts from './routes/products'
+import routesSimulation from './routes/simulation'
+
+const router: Express = express();
+
+/** Logging */
+router.use(morgan('dev'));
+/** Parse the request */
+router.use(express.urlencoded({ extended: false }));
+/** Takes care of JSON data */
+router.use(express.json());
+
+/** RULES OF OUR API */
+router.use((req, res, next) => {
+    // set the CORS policy
+    res.header('Access-Control-Allow-Origin', '*');
+    // set the CORS headers
+    res.header('Access-Control-Allow-Headers', 'origin, X-Requested-With,Content-Type,Accept, Authorization');
+    // set the CORS method headers
+    if (req.method === 'OPTIONS') {
+        res.header('Access-Control-Allow-Methods', 'GET PATCH DELETE POST');
+        return res.status(200).json({});
+    }
+
+    // if (req.headers.authorization && !validateToken(req.headers.authorization)) {
+    //     return res.status(403).json({});
+    // }
+
+    // let token = parseJwt(req.headers.authorization!)
+    // console.log(token)
+    // req.headers['userId'] = token!.sub
+    // req.headers['scope'] = token!.scope
+
+    next();
+});
+
+/** Routes */
+router.use('/proposal', routesProposal);
+router.use('/products', routesProducts);
+router.use('/simulation', routesSimulation);
+
+/** Error handling */
+router.use((req, res, next) => {
+    const error = new Error('not found');
+    return res.status(404).json({
+        message: error.message
+    });
+});
+
+/** Server */
+const httpServer = http.createServer(router);
+const PORT: any = process.env.PORT ?? 6663;
+httpServer.listen(PORT, () => console.log(`The server is running on port ${PORT}`));
