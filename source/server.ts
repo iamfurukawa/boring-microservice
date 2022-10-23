@@ -30,15 +30,10 @@ router.use((req, res, next) => {
         return res.status(200).json({});
     }
 
-    // if (req.headers.authorization && !validateToken(req.headers.authorization)) {
-    //     return res.status(403).json({});
-    // }
-
-    // let token = parseJwt(req.headers.authorization!)
-    // console.log(token)
-    // req.headers['userId'] = token!.sub
-    // req.headers['scope'] = token!.scope
-
+    if (req.headers.authorization && !validateToken(req.headers.authorization)) {
+        return res.status(403).json({});
+    }
+    
     next();
 });
 

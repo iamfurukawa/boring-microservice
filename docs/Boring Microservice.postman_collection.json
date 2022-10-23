@@ -1,0 +1,148 @@
+{
+	"info": {
+		"_postman_id": "57fd4d28-846e-4cc9-aae2-a6f03a7f87a8",
+		"name": "Boring Microservice",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13600929"
+	},
+	"item": [
+		{
+			"name": "Save proposal",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"proposalId\": \"1\",\r\n    \"vendorId\": \"1\",\r\n    \"valueContracted\": 20,\r\n    \"phone\": \"123456\",\r\n    \"motherName\": \"a\",\r\n    \"birthDate\": \"06/12/1996\",\r\n    \"salary\": 30000,\r\n    \"zipCode\": \"11708-350\",\r\n    \"firstInstallment\": \"30/12/2022\",\r\n    \"qtyInstallments\": 3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/proposal/:document",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"proposal",
+						":document"
+					],
+					"variable": [
+						{
+							"key": "document",
+							"value": "{{document}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve proposals by document",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/proposal/:document",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"proposal",
+						":document"
+					],
+					"variable": [
+						{
+							"key": "document",
+							"value": "{{document}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get limit",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/simulation/:document",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"simulation",
+						":document"
+					],
+					"variable": [
+						{
+							"key": "document",
+							"value": "{{document}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get products",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/products",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"products"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
